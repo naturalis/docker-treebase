@@ -1,0 +1,19 @@
+debug = false
+checkNewVersion = true
+logLevel = "INFO"
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    regex = "treebase.org/$"
+    replacement = "treebase.org/treebase-web$1"
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "treebase.org"
+watch = true
+exposedbydefault = false
+

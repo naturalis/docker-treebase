@@ -1,0 +1,45 @@
+version: '3'
+services:
+  treebase:
+    image: "naturalis/treebase:0.0.1"
+    ports:
+     - "8080:8080"
+    volumes:
+    - "/tmp/treebase:/data"
+    networks:
+      - web
+      - default
+    labels:
+      - "traefik.backend=treebase-tomcat"
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:www.treebase.org"
+  db:
+    image: "postgres"
+    restart: "always"
+    environment:
+      POSTGRES_PASSWORD: "blablabla"
+    networks:
+      - default
+    volumes:
+    - "/opt/treebaseimport:/import"
+    - "/opt/treebasedb:/var/lib/postgresql/data"
+  traefik:
+    image: traefik:1.4.5
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/docker-treebase/traefik.dev.toml:/traefik.toml
+      - ${ACME_JSON:-./acme.json}:/acme.json
+    container_name: traefik
+
+# run docker network create web before
+networks:
+  web:
+    external: true
