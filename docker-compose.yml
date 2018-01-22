@@ -3,9 +3,9 @@ services:
   treebase:
     image: "naturalis/treebase:0.0.1"
     ports:
-     - "8080:8080"
+      - "8080:8080"
     volumes:
-    - "/tmp/treebase:/data"
+      - "/tmp/treebase:/usr/local/tomcat/logs"
     networks:
       - web
       - default
