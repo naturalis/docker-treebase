@@ -8,6 +8,10 @@ ENV CATALINA_OPTS="-Djava.util.logging.config.file=/usr/local/tomcat/conf/loggin
     -classpath $TOM/bootstrap.jar:$TOM/tomcat-juli.jar:$APPLE/MRJToolkit.jar:$APPLE/ui.jar \
     -Djava.io.tmpdir=/tmp/tomcat7-tomcat7-tmp \
     -Dorg.apache.el.parser.SKIP_IDENTIFIER_CHECK=true"
+ENV POSTGRES_HOST=db
+ENV POSTGRES_DB=treebasedb
+ENV POSTGRES_USER=treebase_app
+ENV POSTGRES_PASSWORD=PASSWORD
 
 # Pick up some treebase dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -32,4 +36,6 @@ RUN unzip /usr/local/src/treebase-artifact/treebase-web.war -d /usr/local/tomcat
     unzip /usr/local/src/treebase-artifact/data_provider_web.war -d /usr/local/tomcat/webapps/data_provider_web/ && \
     cd /usr/local/tomcat/lib && wget https://jdbc.postgresql.org/download/postgresql-42.1.4.jre7.jar
 
-COPY context.xml /usr/local/tomcat/webapps/treebase-web/META-INF
+ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
