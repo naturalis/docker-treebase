@@ -2,10 +2,11 @@ version: '3'
 services:
   treebase:
     image: "naturalis/treebase:0.0.1"
+    restart: unless-stopped
     ports:
       - "8080:8080"
     volumes:
-      - "/tmp/treebase:/usr/local/tomcat/logs"
+      - "/var/log/treebase:/usr/local/tomcat/logs"
     env_file:
       - .env
     networks:
@@ -19,9 +20,7 @@ services:
       - "traefik.frontend.rule=Host:${siteUrl:-www.treebase.org}"
   db:
     image: "postgres"
-    restart: "always"
-    environment:
-      POSTGRES_PASSWORD: "blablabla"
+    restart: unless-stopped
     networks:
       - default
     volumes:
@@ -29,7 +28,7 @@ services:
     - "/opt/treebasedb:/var/lib/postgresql/data"
   traefik:
     image: traefik:1.5.3
-    restart: always
+    restart: unless-stopped
     ports:
       - 80:80
       - 443:443
