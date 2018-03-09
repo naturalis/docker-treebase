@@ -7,7 +7,7 @@ services:
     volumes:
       - "/tmp/treebase:/usr/local/tomcat/logs"
     env_file:
-      - prod.env
+      - .env
     networks:
       - web
       - default
@@ -28,7 +28,7 @@ services:
     - "/opt/treebaseimport:/import"
     - "/opt/treebasedb:/var/lib/postgresql/data"
   traefik:
-    image: traefik:1.4.5
+    image: traefik:1.5.3
     restart: always
     ports:
       - 80:80
