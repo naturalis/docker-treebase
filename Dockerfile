@@ -3,7 +3,7 @@ ENV TOM=/usr/local/tomcat/bin
 ENV APPLE=/usr/local/src/treebase-artifact/mesquite/apple
 ENV CATALINA_OPTS="-Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties \
     -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
-    -Djava.awt.headless=true -Xmx512m -XX:+UseConcMarkSweepGC \
+    -Djava.awt.headless=true -Xmx8096m -Xms2048m -XX:+UseConcMarkSweepGC \
     -Djava.endorsed.dirs=/usr/local/tomcat/endorsed \
     -classpath $TOM/bootstrap.jar:$TOM/tomcat-juli.jar:$APPLE/MRJToolkit.jar:$APPLE/ui.jar \
     -Djava.io.tmpdir=/tmp/tomcat7-tomcat7-tmp \
