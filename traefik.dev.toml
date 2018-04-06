@@ -1,4 +1,4 @@
-debug = false
+debug = true
 checkNewVersion = true
 logLevel = "INFO"
 defaultEntryPoints = ["http","https"]
@@ -11,23 +11,27 @@ defaultEntryPoints = ["http","https"]
   [entryPoints.https]
   address = ":443"
     [entryPoints.https.redirect]
-    regex = "test.treebase.org/$"
-    replacement = "test.treebase.org/treebase-web$1"
+    regex = "treebase.org/$"
+    replacement = "treebase.org/treebase-web$1"
     [entryPoints.https.tls]
 [retry]
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "test.treebase.org"
+domain = "treebase.org"
 watch = true
 exposedbydefault = false
 
 [acme]
-email = "email@certrequests.bla"
+email = "aut@naturalis.nl"
 storage = "acme.json"
 entryPoint = "https"
 onHostRule = true
 onDemand = false
+
+[[acme.domains]]
+  main = "treebase.org"
+  sans = ["www.treebase.org"]
 
 [acme.httpChallenge]
 entryPoint = "http"
