@@ -1,15 +1,10 @@
-version: '3'
+version: '2'
 services:
   treebase:
     image: "naturalis/treebase:0.0.1"
     restart: unless-stopped
-    resources:
-      limits:
-        cpus: '6.0'
-        memory: 8000M
-      reservations:
-       cpus: '1.0'
-       memory: 1000M
+    cpu_shares: 6
+    mem_limit: 8589934592
     ports:
       - "8080:8080"
     depends_on:
@@ -26,7 +21,7 @@ services:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
       - "traefik.port=8080"
-      - "traefik.frontend.rule=Host:${siteUrl:-treebase.org},www.${siteUrl:-treebase.org}"
+      - "traefik.frontend.rule=Host:${siteUrl},www.${siteUrl}"
   db:
     image: "postgres"
     restart: unless-stopped
@@ -45,8 +40,8 @@ services:
       - web
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${TRAEFIK_TOML_FILE:-./traefik.dev.toml}:/traefik.toml
-      - ${ACME_JSON:-./acme.json}:/acme.json
+      - ${TRAEFIK_TOML_FILE}:/traefik.toml
+      - ${ACME_JSON}:/acme.json
     container_name: traefik
 
 # run docker network create web before
