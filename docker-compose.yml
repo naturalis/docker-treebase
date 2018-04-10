@@ -3,6 +3,13 @@ services:
   treebase:
     image: "naturalis/treebase:0.0.1"
     restart: unless-stopped
+    resources:
+      limits:
+        cpus: '6.0'
+        memory: 8000M
+      reservations:
+       cpus: '1.0'
+       memory: 1000M
     ports:
       - "8080:8080"
     depends_on:
