@@ -34,7 +34,12 @@ RUN cd /usr/local/src && \
 
 RUN unzip /usr/local/src/treebase-artifact/treebase-web.war -d /usr/local/tomcat/webapps/treebase-web/ && \
     unzip /usr/local/src/treebase-artifact/data_provider_web.war -d /usr/local/tomcat/webapps/data_provider_web/ && \
-    cd /usr/local/tomcat/lib && wget https://jdbc.postgresql.org/download/postgresql-42.1.4.jre7.jar
+    cd /usr/local/tomcat/lib && wget https://jdbc.postgresql.org/download/postgresql-42.1.4.jre7.jar 
+
+RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz && \
+    tar xzvf docker-17.04.0-ce.tgz && \
+    mv docker/docker /usr/local/bin && \
+    rm -r docker docker-17.04.0-ce.tgz
 
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 

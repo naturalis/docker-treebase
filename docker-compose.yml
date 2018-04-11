@@ -11,6 +11,7 @@ services:
       - db
     volumes:
       - "/var/log/treebase:/usr/local/tomcat/logs"
+      - "/var/run/docker.sock:/var/run/docker.sock"
     env_file:
       - .env
     networks:
