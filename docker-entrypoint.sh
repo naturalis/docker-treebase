@@ -8,7 +8,7 @@
 
 while true
 do
-  cpu=$(docker stats --no-stream $HOSTNAME --format '{{.CPUPerc}}' | awk -F '.' '{print $1}') ; if [ "$cpu" -gt $CPULIMIT ] ; then echo docker restart ; else echo do not ; fi
+  cpu=$(docker stats --no-stream $HOSTNAME --format '{{.CPUPerc}}' | awk -F '.' '{print $1}') ; if [ "$cpu" -gt $CPULIMIT ] ; then echo "$(date) CPU $cpu docker restarted" >> /usr/local/tomcat/logs/autorestart.log && docker restart $HOSTNAME ; else echo do not ; fi
   sleep 300
 done &
 

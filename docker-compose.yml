@@ -1,10 +1,14 @@
-version: '2'
+version: '2.3'
 services:
   treebase:
     image: "naturalis/treebase:0.0.1"
     restart: unless-stopped
-    cpu_shares: 6
-    mem_limit: 8589934592
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/treebase-web/home.html"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     ports:
       - "8080:8080"
     depends_on:
