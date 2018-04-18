@@ -8,10 +8,6 @@ ENV CATALINA_OPTS="-Djava.util.logging.config.file=/usr/local/tomcat/conf/loggin
     -classpath $TOM/bootstrap.jar:$TOM/tomcat-juli.jar:$APPLE/MRJToolkit.jar:$APPLE/ui.jar \
     -Djava.io.tmpdir=/tmp/tomcat7-tomcat7-tmp \
     -Dorg.apache.el.parser.SKIP_IDENTIFIER_CHECK=true"
-ENV POSTGRES_HOST=db
-ENV POSTGRES_DB=treebasedb
-ENV POSTGRES_USER=treebase_app
-ENV POSTGRES_PASSWORD=PASSWORD
 
 # Pick up some treebase dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
