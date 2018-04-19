@@ -48,6 +48,13 @@ services:
       - ${TRAEFIK_TOML_FILE}:/traefik.toml
       - ${ACME_JSON}:/acme.json
     container_name: traefik
+  autoheal:
+    restart: always
+    image: willfarrell/autoheal
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 # run docker network create web before
 networks:
