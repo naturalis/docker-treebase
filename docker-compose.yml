@@ -9,6 +9,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+    logging:
+      options:
+        max-size: 50m
+        max-file: 3
     ports:
       - "8080:8080"
     depends_on:
@@ -43,6 +47,10 @@ services:
       - 443:443
     networks:
       - web
+    logging:
+      options:
+        max-size: 50m
+        max-file: 3
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${TRAEFIK_TOML_FILE}:/traefik.toml
