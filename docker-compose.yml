@@ -32,14 +32,18 @@ services:
       - "traefik.enable=true"
       - "traefik.port=8080"
       - "traefik.frontend.rule=${TRAEFIK_URL_CONFIG}"
+
   db:
     image: "postgres"
     restart: unless-stopped
     networks:
       - default
+    ports:
+      - 5432:5432
     volumes:
-    - "/opt/treebaseimport:/import"
-    - "/opt/treebasedb:/var/lib/postgresql/data"
+      - "/opt/treebaseimport:/import"
+      - "/opt/treebasedb:/var/lib/postgresql/data"
+
   traefik:
     image: traefik:1.5.3
     restart: unless-stopped
@@ -58,6 +62,7 @@ services:
       - ${TRAEFIK_TOML_FILE}:/traefik.toml
       - ${ACME_JSON}:/acme.json
     container_name: traefik
+
   autoheal:
     restart: always
     image: willfarrell/autoheal
