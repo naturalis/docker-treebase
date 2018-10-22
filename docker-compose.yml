@@ -34,7 +34,7 @@ services:
       - "traefik.frontend.rule=${TRAEFIK_URL_CONFIG}"
 
   db:
-    image: "postgres"
+    image: "postgres:10"
     restart: unless-stopped
     networks:
       - default
